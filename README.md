@@ -1,2 +1,2 @@
 "# Parc-informatique" 
-Frontend Application
+<Strong>Frontend Application</Strong>
