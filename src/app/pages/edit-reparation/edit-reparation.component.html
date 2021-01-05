@@ -1,0 +1,107 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/reparations" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des réparations
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier ou completer les informations de cette réparation
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label class="font-weight-bold" for="date_debut">Date début :</label>
+            <input type="date" id="date_debut" name="date_debut" class="form-control" placeholder=""
+                   #date_debut="ngModel" [(ngModel)]="reparation.date_debut" required
+                   [ngClass]="{'is-invalid': date_debut.errors && date_debut.touched}">
+            <small class="text-muted" *ngIf="date_debut.errors?.required" class="invalid-feedback">
+              La date début de réparation est nécessaire.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="date_fin">Date fin :</label>
+            <input type="date" id="date_fin" name="date_fin" class="form-control" placeholder=""
+                   #date_fin="ngModel" [(ngModel)]="reparation.date_fin" >
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="motif">Rapport (motif) :</label>
+            <input type="text" id="motif" name="motif" class="form-control" placeholder=""
+                   #motif="ngModel" [(ngModel)]="reparation.motif" required minlength="5"
+                   [ngClass]="{'is-invalid': motif.errors && motif.touched}">
+            <small class="text-muted" *ngIf="motif.errors?.required" class="invalid-feedback">
+              Le motif ou le rapport est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="motif.errors?.minlength" class="invalid-feedback">
+              Le motif ou le rapport doit être supérieur à 5 caractères.
+            </small>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-dark">
+              <thead>
+              <tr>
+                <th class="text-center" scope="col">Numéro</th>
+                <th class="text-center" scope="col">Intervenant(e)</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let p of interventions_internes">
+                <th class="text-center" scope="row">{{p.id}}</th>
+                <td class="text-center">{{p.agent}}</td>
+              </tr>
+              <tr *ngFor="let p of interventions_externes">
+                <th class="text-center" scope="row">{{p.id}}</th>
+                <td class="text-center" >{{p.prestataire}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-group">
+            <label for="intervenant">Numéro de l'intervenant(e) :</label>
+            <select
+              name="intervenant"
+              id="intervenant"
+              required
+              class="form-control"
+              [(ngModel)]="reparation.intervention">
+              <option *ngFor="let r of allinterventions" [value]="r.id" [selected]="reparation.intervention==r.id">
+                {{r.id}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pieces">Pièces :</label>
+            <select class="custom-select" id="pieces" name="pieces" [(ngModel)]="piecesReparation" multiple>
+              <option *ngFor="let c of allpieces" [ngValue]="c">{{c.libelle}}</option>>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="tva">TVA :</label>
+            <input type="number" id="tva" name="tva" class="form-control" placeholder=""
+                   #tva="ngModel" [(ngModel)]="reparation.tva">
+            <small class="text-muted">
+              <span>La TVA est optionnelle. Si intervenant interne : TVA=0.</span>
+            </small>
+          </div>
+
+
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

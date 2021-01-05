@@ -1,0 +1,80 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/contrats" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des contrats
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier le contrat
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="reference">Réference :</label>
+            <input type="text" id="reference" name="reference" class="form-control" placeholder=""
+                   #reference="ngModel" [(ngModel)]="contrat.reference" required minlength="5"
+                   [ngClass]="{'is-invalid': reference.errors && reference.touched}">
+            <small class="text-muted" *ngIf="reference.errors?.required" class="invalid-feedback">
+              Le réference de contrat  est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="reference.errors?.minlength" class="invalid-feedback">
+              Le réference de contrat doit être supérieur à 5 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select
+              name="type"
+              id="type"
+              class="form-control"
+              [(ngModel)]="contrat.type" required>
+              <option *ngFor="let r of types" [value]="types.indexOf(r)" [selected]="contrat.type==types.indexOf(r)">{{ r }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fournisseur">Fournisseur/Prestataire</label>
+            <select
+              name="fournisseur"
+              id="fournisseur"
+              class="form-control"
+              disabled
+              [(ngModel)]="tier.id">
+              <option *ngFor="let t of tiers" [value]="t.id" [selected]="tier.id==t.id">{{ t.raison_sociale }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date_signe_contrat">Date de signature :</label>
+            <input type="date" id="date_signe_contrat" name="date_signe_contrat" class="form-control" placeholder=""
+                   #date_signe_contrat="ngModel" [(ngModel)]="contrat.date_signe_contrat" required
+                   [ngClass]="{'is-invalid': date_signe_contrat.errors && date_signe_contrat.touched}">
+            <small class="text-muted" *ngIf="date_signe_contrat.errors?.required" class="invalid-feedback">
+              La date de signature du contrat  est nécessaire.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="date_signe_contrat">Date fin du contrat :</label>
+            <input type="date" id="date_fin_contrat" name="date_fin_contrat" class="form-control" placeholder=""
+                   #date_fin_contrat="ngModel" [(ngModel)]="contrat.date_fin_contrat" required
+                   [ngClass]="{'is-invalid': date_fin_contrat.errors && date_fin_contrat.touched}">
+            <small class="text-muted" *ngIf="date_fin_contrat.errors?.required" class="invalid-feedback">
+              La date du fin de contrat  est nécessaire.
+            </small>
+          </div>
+
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/categories/logiciel/{{id}}" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner au détail du logiciel
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier le logiciel
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="libelle">Libellé :</label>
+            <input type="text" id="libelle" name="libelle" class="form-control" placeholder=""
+                   #libelle="ngModel" [(ngModel)]="logiciel.libelle" required minlength="2"
+                   [ngClass]="{'is-invalid': libelle.errors && libelle.touched}">
+            <small class="text-muted" *ngIf="libelle.errors?.required" class="invalid-feedback">
+              Libellé est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="libelle.errors?.minlength" class="invalid-feedback">
+              Libellé doit être supérieur à 2 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="version">Version :</label>
+            <input type="text" id="version" name="version" class="form-control" placeholder=""
+                   #version="ngModel" [(ngModel)]="logiciel.version" required
+                   [ngClass]="{'is-invalid': version.errors && version.touched}">
+            <small class="text-muted" *ngIf="version.errors?.required" class="invalid-feedback">
+              La version est nécessaire.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" class="form-control" placeholder=""
+                   #description="ngModel" [(ngModel)]="logiciel.description" required minlength="5"
+                   [ngClass]="{'is-invalid': description.errors && description.touched}"></textarea>
+            <small class="text-muted" *ngIf="description.errors?.required" class="invalid-feedback">
+              La description est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="description.errors?.minlength" class="invalid-feedback">
+              La description doit être supérieur à 5 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="date_installation">Date d'installation:</label>
+            <input type="date" id="date_installation" name="date_installation" class="form-control" placeholder=""
+                   #date_installation="ngModel" [(ngModel)]="logiciel.date_installation" required
+                   [ngClass]="{'is-invalid': date_installation.errors && date_installation.touched}">
+            <small class="text-muted" *ngIf="date_installation.errors?.required" class="invalid-feedback">
+              La date est nécessaire.
+            </small>
+          </div>
+
+          <br>
+          <label for="image">Image du logiciel :</label>
+          <div class="form-group">
+            <input type="file" class="custom-file-input" id="image" (change)="onFileSelected($event)">
+            <label class="custom-file-label" for="image">Clique ici pour l'ajouter</label>
+          </div>
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

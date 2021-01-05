@@ -1,0 +1,37 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/caracteristiques/" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des caractéristiques
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier la caractéristique
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="libelle">Libellé :</label>
+            <input type="text" id="libelle" name="libelle" class="form-control" placeholder=""
+                   #libelle="ngModel" [(ngModel)]="caract.libelle" required minlength="5"
+                   [ngClass]="{'is-invalid': libelle.errors && libelle.touched}">
+            <small class="text-muted" *ngIf="libelle.errors?.required" class="invalid-feedback">
+              Désignation est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="libelle.errors?.minlength" class="invalid-feedback">
+              Désignation doit être supérieur à 5 caractères.
+            </small>
+          </div>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

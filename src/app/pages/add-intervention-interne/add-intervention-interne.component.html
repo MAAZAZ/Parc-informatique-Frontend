@@ -1,0 +1,35 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/interventions" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des intervenantes
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Agent intervenant
+        </h4>
+        <form #f="ngForm" (ngSubmit)="add()" >
+          <div class="form-group">
+            <label for="agent">Agent :</label>
+            <select
+              name="agent"
+              id="agent"
+              required
+              class="form-control"
+              [(ngModel)]="interne.agent">
+              <option *ngFor="let r of agents" [value]="agents.indexOf(r)" [selected]="interne.agent==agents.indexOf(r)">{{ r.last_name }} {{ r.first_name }}</option>
+            </select>
+          </div>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

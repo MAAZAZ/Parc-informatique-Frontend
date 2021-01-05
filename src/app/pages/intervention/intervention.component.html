@@ -1,0 +1,103 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Interventions internes</button></h4>
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-8 offset-md-1 pt-3 float-right">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Tapez le nom de l'intervenant(e) pour le/la sélectionner">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="internes" class="table table-striped">
+            <thead class=" text-primary">
+            <tr>
+            <th>
+              Agents intervenants
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of internes | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter :searchText">
+              <td class="text-center">
+                <button class="btn btn-link" routerLink="/agents/{{p.agent.id}}">
+                  {{p.agent.last_name}} {{p.agent.first_name}}
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="length_data_in"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Interventions externes</button></h4>
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-8 offset-md-1 pt-3 float-right">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText2" autocomplete="off" placeholder="Tapez le nom de prestataire intervenant">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="externes" class="table table-striped">
+            <thead class=" text-primary">
+            <tr>
+            <th>
+                Entreprises intervenantes
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of externes | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter :searchText2">
+              <td class="text-center">
+                <button class="btn btn-link" routerLink="/tiers/{{p.prestataire.id}}">
+                  {{p.prestataire.raison_sociale}}
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="length_data_ex"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

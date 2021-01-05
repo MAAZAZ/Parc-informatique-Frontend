@@ -1,0 +1,170 @@
+<div class="row m-4">
+  <div class="col-md-6">
+    <a routerLink="/contrats" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des contrats
+    </a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group float-right">
+      <a class="btn btn-primary mr-1" routerLink="/contrats/modifier/{{contrat.id}}">
+        <i class="fa fa-pencil"></i> Modifier
+      </a>
+      <a class="btn btn-danger ml-1" (click)="deleteContrat()">
+        <i class="fa fa-trash"></i> Supprimer
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 m-3">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-center">{{contrat.reference}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 m-3">
+          <div class="list-group">
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> Type :
+              <span *ngFor="let t of types">
+                <span *ngIf="types.indexOf(t)==contrat.type">{{t}}</span>
+              </span>
+            </li>
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> Date du signature : {{contrat.date_signe_contrat |  date:'dd/MM/yyyy'}}</li>
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> Date du fin de contrat : {{contrat.date_fin_contrat |  date:'dd/MM/yyyy'}}</li>
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> Valable :
+             <span *ngIf="valable==true">Oui</span>
+              <span *ngIf="valable==false">Non</span>
+            </li>
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> Prestataire : {{contrat.fournisseur}}</li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="produits_contrat">
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 btn-group">
+      <a class="btn btn-primary mr-1 float-right" (click)="changeCommande()" *ngIf="produits_contrat.length!=0">
+        <i class="fa fa-pencil"></i> Modifier les commandes
+      </a>
+      <a class="btn btn-outline-primary float-right" *ngIf="prix_total!=0">Prix total payé :
+        <ng2-odometer [number]="prix_total" [config]="{ }"></ng2-odometer>
+        DH</a>
+    </div>
+    <div *ngFor="let p of produits_contrat" class="col-md-4 d-flex align-items-stretch" style="width: 18rem;">
+      <div class="card text-center ">
+        <div class="card-body">
+          <h6 class="card-title">{{p.produit.designation}}</h6>
+          <div class="card-text">
+            <div class="row">
+              <div class="col-md-12" *ngIf="commandeModifier && contrat.type!='1'">Prix : {{p.prix_unitaire}} DH</div>
+              <div class="col-md-12" *ngIf="commandeModifier">Quantité : {{p.quantite}}</div>
+              <div class="row">
+              <form #form="ngForm" (ngSubmit)="changeCommandeinfo(form)">
+                  <input type="number" name="id" class="form-control" #id="ngModel" [(ngModel)]="p.id" hidden>
+                  <input type="text" name="produit" class="form-control" #produit="ngModel" [(ngModel)]="p.produit" hidden>
+                  <div class="container col-md-10" *ngIf="!commandeModifier">
+                    <div class="form-group" *ngIf="contrat.type!='1'">
+                      <label for="prix_unitaire2">Prix unitaire :</label>
+                      <input type="number" id="prix_unitaire2" name="prix_unitaire" class="form-control" placeholder=""
+                             #prix_unitaire="ngModel" [(ngModel)]="p.prix_unitaire" required
+                             [ngClass]="{'is-invalid': prix_unitaire.errors && prix_unitaire.touched}">
+                      <small class="text-muted" *ngIf="prix_unitaire.errors?.required" class="invalid-feedback">
+                        Le prix unitaire de ce produit est nécessaire.
+                      </small>
+                    </div>
+                  </div>
+                  <div class="container col-md-10" *ngIf="!commandeModifier">
+                    <div class="form-group">
+                    <label for="quantite2">Quantité :</label>
+                    <input type="number" id="quantite2" name="quantite" class="form-control" placeholder=""
+                           #quantite="ngModel" [(ngModel)]="p.quantite" required
+                           [ngClass]="{'is-invalid': quantite.errors && quantite.touched}">
+                    <small class="text-muted" *ngIf="quantite.errors?.required" class="invalid-feedback">
+                      La quantité de ce produit est nécessaire.
+                    </small>
+                  </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="!commandeModifier">
+                    <button class="btn btn-primary mr-1" type="submit" [disabled]="!form.valid">
+                      Confirmer
+                    </button>
+                  </div>
+                  <div class="col-md-12" *ngIf="!commandeModifier">
+                    <button class="btn btn-danger ml-1" (click)="changeCommande()">
+                      Annuler
+                    </button>
+                  </div>
+              </form>
+              </div>
+              <div class="col-md-12" *ngIf="commandeModifier">
+                <a class="btn btn-danger ml-1" (click)="deleteProduitContrat(p.id)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="text-center" *ngIf="formeCache">
+    <a class="btn btn-default" (click)="formeCacheChange()">
+      <i class="large fa fa-plus"></i> Ajouter une commande
+    </a>
+      </div>
+    <div *ngIf="!formeCache" class="container">
+      <form #f="ngForm" (ngSubmit)="addCommande()" >
+
+        <div>
+          <div class="form-group">
+            <label class="font-weight-bold" for="produit">Produit :</label>
+            <select class="custom-select" id="produit" name="produit" [(ngModel)]="commande.produit" required>
+              <option [ngValue]="c"  *ngFor="let c of allproducts">{{c.designation}}</option>>
+            </select>
+          </div>
+          <small class="text-muted">
+            Si la ou les produits ne figurent pas dans cette liste, vous pouvez les ajouter par
+            <a routerLink="/produits/nouveau">ici</a>.
+          </small>
+        </div>
+        <hr *ngIf="contrat.type!='1'">
+        <div class="form-group" *ngIf="contrat.type!='1'">
+          <label class="font-weight-bold" for="prix_unitaire">Prix unitaire :</label>
+          <input type="number" id="prix_unitaire" name="prix_unitaire" class="form-control" placeholder=""
+                 #prix_unitaire="ngModel" [(ngModel)]="commande.prix_unitaire" required
+                 [ngClass]="{'is-invalid': prix_unitaire.errors && prix_unitaire.touched}">
+          <small class="text-muted" *ngIf="prix_unitaire.errors?.required" class="invalid-feedback">
+            Le prix unitaire est nécessaire.
+          </small>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label class="font-weight-bold" for="quantite">Quantité :</label>
+          <input type="text" id="quantite" name="quantite" class="form-control" placeholder=""
+                 #quantite="ngModel" [(ngModel)]="commande.quantite" required
+                 [ngClass]="{'is-invalid': quantite.errors && quantite.touched}">
+          <small class="text-muted" *ngIf="quantite.errors?.required" class="invalid-feedback">
+            La quantité est nécessaire.
+          </small>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-success mr-1"  type="submit" [disabled]="!f.valid">Confirmer</button>
+          <button class="btn btn-danger mr-1" (click)="formeCacheChange()">Annuler</button>
+        </div>
+      </form>
+    </div>
+</div>
+  </div>

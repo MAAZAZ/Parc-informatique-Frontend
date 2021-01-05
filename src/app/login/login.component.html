@@ -1,0 +1,55 @@
+<ngx-spinner
+  bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "square-loader" [fullScreen] = "true">>
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="container my-5">
+  <div class="card">
+    <div class="card-header text-center">
+        <button class="btn btn-outline-info" routerLink="/parcinformatique">Retourner à la page d'acceuil</button>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-4 login-sec">
+      <h2 class="text-center">Connexion</h2>
+      <form [formGroup]="loginform" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Identifiant :</label>
+          <input id="username" type="text" formControlName="username" class="form-control" placeholder="" aria-describedby="helpId">
+          <div class="alert alert-danger" *ngIf="submitted && form.username.errors">
+            <div *ngIf="form.username.errors.minlength">L'identifiant doit etre supérieur à {{form.username.errors.minlength.requiredLength }} caractères</div>
+            <div *ngIf="form.username.errors.required">Vous devez entrer votre identifiant.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe :</label>
+          <input id="password" type="password" formControlName="password"  class="form-control" placeholder="" aria-describedby="helpId">
+          <div class="alert alert-danger" *ngIf="submitted && form.password.errors">
+            Vous devez entrer votre mot de passe.
+          </div>
+        </div>
+        <button [disabled]="loading" class="btn btn-primary float-right">Se connecter</button>
+      </form>
+      <div class="copy-text">ORMVA/TF &#169; {{ anio }}</div>
+    </div>
+    <div class="col-md-8 banner-sec">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="carousel-item active">
+            <img class="d-block img-fluid" src="./assets/img/pexels-photo.jpg" alt="première slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block img-fluid" src="./assets/img/people-coffee-tea-meeting.jpg" alt="deuxième slide">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

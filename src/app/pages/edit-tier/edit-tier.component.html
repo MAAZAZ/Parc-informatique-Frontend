@@ -1,0 +1,93 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/tiers/{{id}}" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner au détail du prestataire (fournisseur)
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier le prestataire (fournisseur)
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="raison_sociale">Raison sociale :</label>
+            <input type="text" id="raison_sociale" name="raison_sociale" class="form-control" placeholder=""
+                   #raison_sociale="ngModel" [(ngModel)]="tier.raison_sociale" required minlength="2"
+                   [ngClass]="{'is-invalid': raison_sociale.errors && raison_sociale.touched}">
+            <small class="text-muted" *ngIf="raison_sociale.errors?.required" class="invalid-feedback">
+              La raison sociale est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="raison_sociale.errors?.minlength" class="invalid-feedback">
+              La raison sociale doit être supérieur à 2 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="specialite">Secteur/specialité :</label>
+            <input type="text" id="specialite" name="specialite" class="form-control" placeholder=""
+                   #specialite="ngModel" [(ngModel)]="tier.specialite" required minlength="5"
+                   [ngClass]="{'is-invalid': specialite.errors && specialite.touched}">
+            <small class="text-muted" *ngIf="specialite.errors?.required" class="invalid-feedback">
+              La spécialité est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="specialite.errors?.minlength" class="invalid-feedback">
+              La spécialité doit être supérieur à 5 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="telephone">Telephone :</label>
+            <input type="text" id="telephone" name="telephone" class="form-control" placeholder=""
+                   #telephone="ngModel" [(ngModel)]="tier.telephone" required
+                   [ngClass]="{'is-invalid': telephone.errors && telephone.touched}">
+            <small class="text-muted" *ngIf="telephone.errors?.required" class="invalid-feedback">
+              Le numéro de telephone est nécessaire.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="mail">Adresse electronique :</label>
+            <input type="email" id="mail" name="mail" class="form-control" placeholder=""
+                   #mail="ngModel" [(ngModel)]="tier.mail" required email="true"
+                   [ngClass]="{'is-invalid': mail.errors && mail.touched}">
+            <small class="text-muted" *ngIf="mail.errors?.required" class="invalid-feedback">
+              L'adresse email est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="mail.errors?.email" class="invalid-feedback">
+              Ce n'est pas une adresse email!
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="adresse">Adresse :</label>
+            <textarea type="text" id="adresse" name="adresse" class="form-control" placeholder=""
+                   #adresse="ngModel" [(ngModel)]="tier.adresse" required minlength="5"
+                      [ngClass]="{'is-invalid': adresse.errors && adresse.touched}"></textarea>
+            <small class="text-muted" *ngIf="adresse.errors?.required" class="invalid-feedback">
+              L'adresse est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="adresse.errors?.minlength" class="invalid-feedback">
+              L'adresse doit être supérieur à 5 caractères.
+            </small>
+          </div>
+
+          <label for="image">Logo de l'entreprise :</label>
+          <div class="form-group">
+            <input type="file" class="custom-file-input" id="image" (change)="onFileSelected($event)">
+            <label class="custom-file-label" for="image">Clique ici pour l'ajouter</label>
+          </div>
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

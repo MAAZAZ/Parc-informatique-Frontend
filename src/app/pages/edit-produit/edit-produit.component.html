@@ -1,0 +1,78 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/produits/{{id}}" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner au détail du produit
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier le produit
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label class="font-weight-bold" for="reference">Réference :</label>
+            <input type="text" id="reference" name="reference" class="form-control" placeholder=""
+                   #reference="ngModel" [(ngModel)]="produit.reference" required minlength="2"
+                   [ngClass]="{'is-invalid': reference.errors && reference.touched}">
+            <small class="text-muted" *ngIf="reference.errors?.required" class="invalid-feedback">
+              La réference est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="reference.errors?.minlength" class="invalid-feedback">
+              La réference doit être supérieur à 2 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="designation">Désignation/Modèle :</label>
+            <input type="text" id="designation" name="designation" class="form-control" placeholder=""
+                   #designation="ngModel" [(ngModel)]="produit.designation" required minlength="2"
+                   [ngClass]="{'is-invalid': designation.errors && designation.touched}">
+            <small class="text-muted" *ngIf="designation.errors?.required" class="invalid-feedback">
+              La désignation/Modèle est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="designation.errors?.minlength" class="invalid-feedback">
+              La désignation/Modèle doit être supérieur à 2 caractères.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="marque">Marque :</label>
+            <select class="custom-select" id="marque" name="marque" [(ngModel)]="marque" required>
+              <option [ngValue]="m" *ngFor="let m of marques">{{m.designation}}</option>
+            </select>
+            <small class="text-muted text-danger">La marque actuelle : {{marque.designation}}</small>
+          </div>
+
+          <div class="form-group">
+            <label class="font-weight-bold" for="type_produit">Catégorie :</label>
+            <select class="custom-select" id="type_produit" name="type_produit" [(ngModel)]="type" required>
+              <option [ngValue]="c" *ngFor="let c of categories">{{c.libelle}}</option>
+            </select>
+            <small class="text-muted text-danger">La catégorie actuelle : {{type.libelle}}</small>
+          </div>
+          <!--
+          <div class="form-group">
+            <label class="font-weight-bold" for="quantite">Quantité :</label>
+            <input type="number" id="quantite" name="quantite" class="form-control"
+                   #quantite="ngModel" [(ngModel)]="produit.quantite_totale" required
+                   [ngClass]="{'is-invalid': quantite.errors && quantite.touched}">
+            <small class="text-muted" *ngIf="quantite.errors?.required" class="invalid-feedback">
+              La quantié de ce produit est nécessaire.
+            </small>
+          </div>
+            -->
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

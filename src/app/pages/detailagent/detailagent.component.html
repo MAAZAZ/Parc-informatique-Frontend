@@ -1,0 +1,139 @@
+<div class="row m-4">
+  <div class="col-md-6">
+    <a routerLink="/agents" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des agents
+    </a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group float-right">
+      <button class="btn btn-danger ml-1" [disabled]="agent.id==1" (click)="deleteAgent()">
+        <i class="fa fa-trash"></i> Supprimer
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="image">
+        <img src="assets/img/damir-bosnjak.jpg" alt="...">
+      </div>
+      <div class="card-body">
+        <div class="author">
+            <img class="avatar border-gray" src="assets/img/logo-small.png">
+            <h5 class="title">{{agent.username}}</h5>
+          <p class="description" *ngIf="agent.role==0">
+            Administrateur
+          </p>
+          <p class="description" *ngIf="agent.role==1">
+            Intervenant
+          </p>
+          <p class="description" *ngIf="agent.role==2">
+            Utilisateur
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card" *ngIf="!modifier">
+      <div class="card-header">
+        <h4 class="card-title">Compte</h4>
+      </div>
+      <div class="card-body">
+        <div class="container">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label for="Role">Role</label>
+            <select
+              name="Role"
+              id="Role"
+              class="form-control"
+              [(ngModel)]="agent.role">
+              <option *ngFor="let r of roles" [value]="roles.indexOf(r)" [selected]="agent.role==roles.indexOf(r)">{{ r }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-12" *ngIf="agent.role==0">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="agent.password">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Profil</h5>
+      </div>
+      <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="modifierAgent()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="last_name">Nom</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" #last_name="ngModel" [(ngModel)]="agent.last_name" [disabled]="modifier">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="first_name">Prénom</label>
+                <input type="text" id="first_name" class="form-control" name="first_name" #first_name="ngModel" [(ngModel)]="agent.first_name" [disabled]="modifier">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Adresse email</label>
+                <input type="email" id="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="agent.email" [disabled]="modifier">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="telephone">Telephone</label>
+                <input type="email" id="telephone" class="form-control" name="telephone" #telephone="ngModel" [(ngModel)]="agent.telephone" [disabled]="modifier">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="matricule">Matricule</label>
+                <input type="text" id="matricule" class="form-control" name="matricule" #matricule="ngModel" [(ngModel)]="agent.matricule" [disabled]="modifier">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="service">Service</label>
+                <select
+                  name="service"
+                  id="service"
+                  [disabled]="modifier"
+                  class="form-control"
+                  [(ngModel)]="agent.service">
+                  <option *ngFor="let s of services" [value]="s.id" [selected]="agent.service==s.id">{{ s.nom_service }}</option>
+                </select></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="specialite">Spécialité</label>
+                <input type="text" id="specialite" class="form-control" name="specialite" #specialite="ngModel" [(ngModel)]="agent.specialite" [disabled]="modifier">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button *ngIf="modifier" (click)="changerModifer()" class="btn btn-primary btn-round">Modifier</button>
+              <button *ngIf="!modifier" type="submit" class="btn btn-primary btn-round">Confirmer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

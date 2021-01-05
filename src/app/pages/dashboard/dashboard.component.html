@@ -1,0 +1,263 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="timer">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-laptop text-warning"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Produits</p>
+              <p class="card-title">{{Nbproduit}}
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="row">
+          <div class="col-md-12" *ngIf="Nbmateriel<2">
+            <div class="float-left"><i class="fa fa-refresh"></i> &nbsp; {{ Nbmateriel }} produit de type materiel</div>
+          </div>
+          <div class="col-md-12" *ngIf="Nbmateriel>=2">
+            <div class="float-left"><i class="fa fa-refresh"></i> &nbsp; {{ Nbmateriel }} produits de type materiel</div>
+          </div>
+          <div class="col-md-12">
+            &nbsp;
+          </div>
+          <div class="col-md-12" *ngIf="Nblogiciel<2">
+            <div class="float-right"><i class="fa fa-refresh"></i> &nbsp; {{ Nblogiciel }} produit de type logiciel</div>
+          </div>
+          <div class="col-md-12" *ngIf="Nblogiciel>=2">
+            <div class="float-right"><i class="fa fa-refresh"></i> &nbsp; {{ Nblogiciel }} produits de type logiciel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-basket text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Produits défectueux</p>
+              <p class="card-title"> {{Nbpanne}}
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="float-left" *ngIf="panne"><i class="fa fa-refresh"></i> &nbsp; {{panne.produit}}</div>
+            <div class="float-right" *ngIf="!panne"><i class="fa fa-clock-o"> &nbsp; Pas de produit en panne.</i></div>
+          </div>
+          <div class="col-md-12">
+            <div class="float-right" *ngIf="panne"><i class="fa fa-clock-o"></i>
+              &nbsp; {{panne.date |  date:'dd/MM/yyyy à HH:mm'}}</div>
+            <div class="float-right" *ngIf="!panne"><i class="fa fa-clock-o"> &nbsp; Pas encore </i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-settings-gear-65 text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Réparations</p>
+              <p class="card-title">{{Nbreparation}}
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="float-left" *ngIf="reparation"><i class="fa fa-refresh"></i>
+              &nbsp; {{reparation.panne_concerne}}</div>
+            <div class="float-right" *ngIf="!reparation"><i class="fa fa-clock-o"> &nbsp; Pas de réparation.</i></div>
+          </div>
+          <div class="col-md-12">
+            &nbsp;
+          </div>
+          <div class="col-md-12">
+            <div class="float-right" *ngIf="reparation"><i class="fa fa-clock-o"></i>
+              &nbsp; {{reparation.date_fin |  date:'dd/MM/yyyy'}}</div>
+            <div class="float-right" *ngIf="!reparation"><i class="fa fa-clock-o"> &nbsp; Pas encore </i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-paper text-primary"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Réclamations</p>
+              <p class="card-title"> {{Nbreclamation}}
+              <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="float-left"><i class="fa fa-refresh"></i> &nbsp; {{reclamation.agent}}</div>
+            <div class="float-right" *ngIf="!reparation"><i class="fa fa-clock-o"> &nbsp; Pas de réclamation.</i></div>
+          </div>
+          <div class="col-md-12">
+            &nbsp;
+          </div>
+          <div class="col-md-12">
+            <div class="float-right" *ngIf="reparation"><i class="fa fa-clock-o"></i>
+              &nbsp; {{reclamation.date |  date:'dd/MM/yyyy à HH:mm'}}</div>
+            <div class="float-right" *ngIf="!reparation"><i class="fa fa-clock-o"> &nbsp; Pas encore </i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+<div class="row">
+
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-title">Produits défectueux</h5>
+        <p class="text-black-50">Le nombre des produits défectueux en fonction des mois de
+          l'année {{test | date: 'yyyy'}} </p>
+      </div>
+      <div class="card-body">
+        <canvas id="speedChart" width="400" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-5 align-self-center" *ngIf="marques_selected">
+    <div class="card">
+      <div class="card-header ">
+        <h5 class="card-title">Marques</h5>
+        <p class="text-black-50">Les marques la plus utilisée</p>
+      </div>
+      <div class="card-body">
+      <div id="chart" *ngIf="chartOptions">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive"
+        ></apx-chart>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header ">
+        <h5 class="card-title">Catégories</h5>
+        <p class="text-black-50">Les catégories les plus dominantes</p>
+      </div>
+      <div class="card-body">
+      <div id="chart2" *ngIf="chartOptions3">
+        <apx-chart
+          [series]="chartOptions3.series"
+          [chart]="chartOptions3.chart"
+          [labels]="chartOptions3.labels"
+          [fill]="chartOptions3.fill"
+          [stroke]="chartOptions3.stroke"
+          [responsive]="chartOptions3.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-5 align-self-center" *ngIf="produit_selected">
+    <div class="card">
+      <div class="card-header ">
+        <h5 class="card-title">Produits défectueux</h5>
+        <p class="text-black-50">Les produits les plus endommagés (tombent en panne)</p>
+      </div>
+      <div class="card-body">
+        <div id="chart3" *ngIf="chartOptions2">
+          <apx-chart
+            [series]="chartOptions2.series"
+            [chart]="chartOptions2.chart"
+            [labels]="chartOptions2.labels"
+            [responsive]="chartOptions2.responsive"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Réparations</h5>
+        <p class="text-black-50">Les réparations qui sont éffectuées cet année {{test | date: 'yyyy'}} </p>
+      </div>
+      <div class="card-body ">
+        <canvas id=chartHours width="400" height="100"></canvas>
+      </div>
+      <div class="card-footer">
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <small class="text-center text-danger">
+              <i class="fa fa-circle"></i> &nbsp;<span>Date de début des réparations</span>
+            </small>
+          </div>
+          <div class="col-md-6">
+            <small class="text-center text-success">
+              <i class="fa fa-circle"></i> &nbsp;<span>Date de fin des réparations</span>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

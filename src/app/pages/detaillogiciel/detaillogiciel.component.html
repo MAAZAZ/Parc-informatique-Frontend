@@ -1,0 +1,43 @@
+<div class="row m-4">
+  <div class="col-md-6">
+    <a routerLink="/categories" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des produits
+    </a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group float-right">
+      <a class="btn btn-primary mr-1" routerLink="/categories/logiciel/modifier/{{logiciel.id}}">
+        <i class="fa fa-pencil"></i> Modifier
+      </a>
+      <a class="btn btn-danger ml-1" (click)="deleteLogiciel()">
+        <i class="fa fa-trash"></i> Supprimer
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="col-md-12 m-3">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-center">{{logiciel.libelle}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 m-3">
+          <div class="list-group">
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> <span style="text-decoration: underline;">Date d'installation</span> : {{logiciel.date_installation |  date:'dd/MM/yyyy'}}</li>
+            <li class="list-group-item"><i class="nc-icon nc-minimal-right"></i> <span style="text-decoration: underline;">Version</span> : {{logiciel.version}}</li>
+            <li class="list-group-item" style="text-align:justify;"><i class="nc-icon nc-minimal-right"></i> <span style="text-decoration: underline;">Description</span>: {{logiciel.description}}</li>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <img class="img-thumbnail" src="{{logiciel.image}}" alt="Pas d'image">
+      </div>
+    </div>
+  </div>
+</div>

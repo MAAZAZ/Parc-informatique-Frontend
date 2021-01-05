@@ -1,0 +1,91 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Matériels</button></h4>
+        <button class="btn btn-outline-primary btn-round float-right" routerLink="/categories/materiels/nouveau">
+          <i class="nc-icon nc-simple-add"></i> Nouveau matériel
+        </button>
+      </div>
+      <br>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="materiels" datatable="ng" [dtOptions]="dtOptions" class="row-border hover">
+            <thead class=" text-primary">
+            <tr>
+            <th class="text-center">
+              Libellé
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of materiels">
+              <td class="text-center">
+                <button class="btn btn-primary btn-link" routerLink="/categories/materiel/{{p.id}}">
+                  {{p.libelle}}
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Logiciels</button></h4>
+        <button class="btn btn-outline-primary btn-round float-right" routerLink="/categories/logiciels/nouveau">
+          <i class="nc-icon nc-simple-add"></i> Nouveau logiciel
+        </button>
+      </div>
+      <br>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="logiciels" datatable="ng" [dtOptions]="dtOptions" class="row-border hover">
+            <thead class=" text-primary">
+            <tr>
+            <th class="text-center">
+                Libellé
+            </th>
+            <th class="text-center">
+              Date d'installation
+            </th>
+            <th class="text-center">
+              version
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of logiciels">
+              <td class="text-center">
+                <button class="btn btn-primary btn-link" routerLink="/categories/logiciel/{{p.id}}">
+                  {{p.libelle}}
+                </button>
+              </td>
+              <td class="text-center">
+                {{p.date_installation |  date:'dd/MM/yyyy'}}
+              </td>
+              <td class="text-center">
+                {{p.version}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

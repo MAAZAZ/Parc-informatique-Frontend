@@ -1,0 +1,73 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/pieces" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des pièces
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier la pièce
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="reference">Réference :</label>
+            <input type="text" id="reference" name="reference" class="form-control" placeholder=""
+                   #reference="ngModel" [(ngModel)]="piece.reference" required minlength="2"
+                   [ngClass]="{'is-invalid': reference.errors && reference.touched}">
+            <small class="text-muted" *ngIf="reference.errors?.required" class="invalid-feedback">
+              Le réference est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="reference.errors?.minlength" class="invalid-feedback">
+              Le réference doit être supérieur à 2 caractères.
+            </small>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="libelle">Désignation :</label>
+            <input type="text" id="libelle" name="libelle" class="form-control" placeholder=""
+                   #libelle="ngModel" [(ngModel)]="piece.libelle" required minlength="2"
+                   [ngClass]="{'is-invalid': libelle.errors && libelle.touched}">
+            <small class="text-muted" *ngIf="libelle.errors?.required" class="invalid-feedback">
+              La désignation est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="libelle.errors?.minlength" class="invalid-feedback">
+              La désignation doit être supérieur à 2 caractères.
+            </small>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="prix_unitaire">Prix unitaire :</label>
+            <input type="text" id="prix_unitaire" name="prix_unitaire" class="form-control" placeholder=""
+                   #prix_unitaire="ngModel" [(ngModel)]="piece.prix_unitaire" required
+                   [ngClass]="{'is-invalid': prix_unitaire.errors && prix_unitaire.touched}">
+            <small class="text-muted" *ngIf="prix_unitaire.errors?.required" class="invalid-feedback">
+              Le prix de pièce est nécessaire.
+            </small>
+          </div>
+          <br>
+          <div class="form-group text-center">
+            <label class="form-control">Image actuelle</label>
+            <img src="{{piece.image}}" class="img-fluid img-thumbnail" alt="Pas d'image" style="width: 20%;">
+            <input type="hidden" name="logo" #logo="ngModel" [(ngModel)]="piece.image">
+          </div>
+          <br>
+          <label for="image">Pour changer l'image de la pièce :</label>
+          <div class="form-group">
+            <input type="file" class="custom-file-input" id="image" (change)="onFileSelected($event)">
+            <label class="custom-file-label" for="image">Clique ici pour changer l'image</label>
+          </div>
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

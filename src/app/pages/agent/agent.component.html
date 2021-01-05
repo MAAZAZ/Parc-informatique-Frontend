@@ -1,0 +1,70 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Agents</button></h4>
+        <button class="btn btn-outline-primary btn-round float-right" routerLink="/agents/nouvel">
+          <i class="nc-icon nc-simple-add"></i> Nouvel agent
+        </button>
+      </div>
+      <br>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="agents" datatable="ng" [dtOptions]="dtOptions" class="row-border hover">
+            <thead class=" text-primary">
+            <tr>
+              <th class="text-center">
+                Matricule
+              </th>
+            <th class="text-center">
+              Nom
+            </th>
+            <th class="text-center">
+              Prenom
+            </th>
+              <th class="text-center">
+                Adresse email
+              </th>
+              <th class="text-center">
+                Telephone
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of agents">
+              <td class="text-center">
+                <button class="btn btn-primary btn-link" routerLink="/agents/{{p.id}}">
+                  {{p.matricule}}
+                </button>
+              </td>
+              <td class="text-center">
+                {{p.last_name}}
+              </td>
+              <td class="text-center">
+                {{p.first_name}}
+              </td>
+              <td class="text-center">
+                {{p.email}}
+              </td>
+              <td *ngIf="p.telephone" class="text-center">
+                {{p.telephone}}
+              </td>
+              <td *ngIf="p.telephone==null" class="text-center">
+                --
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

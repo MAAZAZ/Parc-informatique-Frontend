@@ -1,0 +1,45 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/categories" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des catégories
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Nouveau matériel
+        </h4>
+        <form #f="ngForm" (ngSubmit)="add()" >
+          <div class="form-group">
+            <label for="libelle">Libellé :</label>
+            <input type="text" id="libelle" name="libelle" class="form-control" placeholder=""
+                   #libelle="ngModel" [(ngModel)]="materiel.libelle" required minlength="2"
+                   [ngClass]="{'is-invalid': libelle.errors && libelle.touched}">
+            <small class="text-muted" *ngIf="libelle.errors?.required" class="invalid-feedback">
+              Libellé est nécessaire.
+            </small>
+            <small class="text-muted" *ngIf="libelle.errors?.minlength" class="invalid-feedback">
+              Libellé doit être supérieur à 2 caractères.
+            </small>
+          </div>
+          <br>
+          <label for="image">Image du matériel :</label>
+          <div class="form-group">
+            <input type="file" class="custom-file-input" id="image" name="image" (change)="onFileSelected($event)"
+                   #logo="ngModel" [(ngModel)]="materiel.image">
+            <label class="custom-file-label" for="image">Clique ici pour l'ajouter</label>
+          </div>
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Ajouter</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

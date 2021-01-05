@@ -1,0 +1,39 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/pannes" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des produits défectueux
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Modifier le produit défectueux
+        </h4>
+        <form #f="ngForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <label for="produit">Produit :</label>
+            <input type="text" id="produit" class="form-control" placeholder=""
+                   [value]="produit.designation" disabled>
+          </div>
+          <div class="form-group">
+            <label for="quantite">Quantité :</label>
+            <input type="number" id="quantite" name="quantite" class="form-control" placeholder=""
+                   #quantite="ngModel" [(ngModel)]="panne.quantite" required
+                   [ngClass]="{'is-invalid': quantite.errors && quantite.touched}">
+            <small class="text-muted" *ngIf="quantite.errors?.required" class="invalid-feedback">
+              Désignation est nécessaire.
+            </small>
+          </div>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Modifier</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

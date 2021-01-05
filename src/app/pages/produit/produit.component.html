@@ -1,0 +1,66 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Produits</button></h4>
+        <button class="btn btn-outline-primary btn-round float-right" routerLink="/produits/nouveau">
+          <i class="nc-icon nc-simple-add"></i> Nouveau produit
+        </button>
+      </div>
+      <br>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="produits" datatable="ng" [dtOptions]="dtOptions" class="row-border hover">
+            <thead class=" text-primary">
+            <tr>
+            <th class="text-center">
+              Référence
+            </th>
+            <th class="text-center">
+              Désignation/Modèle
+            </th>
+            <th class="text-center">
+              Marque
+            </th>
+            <th class="text-center">
+              Catégorie
+            </th>
+            <th class="text-center">
+              Quantité
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of produits">
+              <td class="text-center">
+                <button class="btn btn-primary btn-link" routerLink="/produits/{{p.id}}">
+                  {{p.reference}}
+                </button>
+              </td>
+              <td class="text-center">
+                {{p.designation}}
+              </td>
+              <td class="text-center">
+                {{p.marque}}
+              </td>
+              <td class="text-center">
+                {{p.type_produit}}
+              </td>
+              <td class="text-center">
+                {{p.quantite_totale}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

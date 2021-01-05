@@ -1,0 +1,124 @@
+<ngx-spinner
+  bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "square-loader" [fullScreen] = "true">>
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row m-5">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Interventions</button></h4>
+        <p class="text-black-50 text-justify">La liste suivante comporte les interventions effectuées ou en cours d'execution.</p>
+        <br>
+        <div class="col-md-8 float-right">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher des interventions à travers le nom d'intervent(e)">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="reparations" class="table table-striped">
+            <thead class=" text-primary">
+            <tr>
+              <th class="text-center">
+                Intervenant(e)
+              </th>
+              <th class="text-center">
+                Produit
+              </th>
+              <th class="text-center">
+                Date de debut
+              </th>
+              <th class="text-center">
+                Date de fin
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of reparations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter :searchText">
+              <td class="text-center">
+                {{p.intervention}}
+              </td>
+              <td class="text-center">
+                {{p.panne_concerne}}
+              </td>
+              <td class="text-center">
+                {{p.date_debut |  date:'dd/MM/yyyy' }}
+              </td>
+              <td class="text-center">
+                {{p.date_fin |  date:'dd/MM/yyyy'}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="length_data"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 align-self-center">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <p class="text-justify text-center"> Bienvenue sur le site officiel de la gestion du parc informatique d'ORMVA/TF</p>
+            <h4 class="card-title text-center"><button class="btn btn-outline-success btn-round" routerLink="/login">S'authentifier</button></h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title text-center"><button class="btn btn-primary btn-round">Déclarer une réclamation</button></h4>
+          </div>
+          <br>
+          <div class="card-body">
+            <form #f="ngForm" (ngSubmit)="add()" >
+
+              <div class="form-group">
+                <label for="agent">Votre matricule :</label>
+                <input type="text" id="agent" name="agent" class="form-control" placeholder=""
+                       #agent="ngModel" [(ngModel)]="reclamation.agent" required minlength="5"
+                       [ngClass]="{'is-invalid': agent.errors && agent.touched}">
+                <small class="text-muted" *ngIf="agent.errors?.required" class="invalid-feedback">
+                  Le matricule est nécessaire.
+                </small>
+                <small class="text-muted" *ngIf="agent.errors?.minlength" class="invalid-feedback">
+                  Le matricule doit être supérieur à 5 caractères.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description du problème :</label>
+                <textarea id="description" name="description" class="form-control" placeholder=""
+                          #description="ngModel" [(ngModel)]="reclamation.description" required minlength="5"
+                          [ngClass]="{'is-invalid': description.errors && description.touched}"></textarea>
+                <small class="text-muted" *ngIf="description.errors?.required" class="invalid-feedback">
+                  La description est nécessaire.
+                </small>
+                <small class="text-muted" *ngIf="description.errors?.minlength" class="invalid-feedback">
+                  La description doit être supérieur à 5 caractères.
+                </small>
+              </div>
+              <div class="text-center">
+                <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Envoyer</button>
+                <button class="btn btn-danger mr-1" type="reset">Réinitialiser</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

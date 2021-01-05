@@ -1,0 +1,145 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/agents" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des agents
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Nouvel agent
+        </h4>
+        <form #f="ngForm" (ngSubmit)="add()" >
+          <div class="row">
+
+            <div class="col-md-12">
+              <hr data-content="Informations personnelles" class="hr-text">
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="nom">Nom :</label>
+              <input type="text" id="nom" name="nom" class="form-control" placeholder=""
+                     #nom="ngModel" [(ngModel)]="agent.last_name" required minlength="2"
+                     [ngClass]="{'is-invalid': nom.errors && nom.touched}">
+              <small class="text-muted" *ngIf="nom.errors?.required" class="invalid-feedback">
+                Le nom est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="nom.errors?.minlength" class="invalid-feedback">
+                Le nom doit être supérieur à 2 caractères.
+              </small>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="prenom">Prenom :</label>
+              <input type="text" id="prenom" name="prenom" class="form-control" placeholder=""
+                     #prenom="ngModel" [(ngModel)]="agent.first_name" required minlength="2"
+                     [ngClass]="{'is-invalid': prenom.errors && prenom.touched}">
+              <small class="text-muted" *ngIf="prenom.errors?.required" class="invalid-feedback">
+                Le prenom est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="prenom.errors?.minlength" class="invalid-feedback">
+                Le prenom doit être supérieur à 2 caractères.
+              </small>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="telephone">Telephone :</label>
+              <input type="text" id="telephone" name="telephone" class="form-control" placeholder=""
+                     #telephone="ngModel" [(ngModel)]="agent.telephone" required minlength="7"
+                     [ngClass]="{'is-invalid': telephone.errors && telephone.touched}">
+              <small class="text-muted" *ngIf="telephone.errors?.required" class="invalid-feedback">
+                Le numéro de telephone est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="telephone.errors?.minlength" class="invalid-feedback">
+                Le numéro de telephone doit être supérieur à 7 chiffres.
+              </small>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="email">Adresse email :</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder=""
+                     #email="ngModel" [(ngModel)]="agent.email" required email="true"
+                     [ngClass]="{'is-invalid': email.errors && email.touched}">
+              <small class="text-muted" *ngIf="email.errors?.required" class="invalid-feedback">
+                L'adresse email est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="email.errors?.email" class="invalid-feedback">
+                Vous avez saisi une adresse email incorrecte.
+              </small>
+            </div>
+
+            <div class="col-md-12">
+              <hr data-content="Informations professionnelles" class="hr-text">
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="matricule">Matricule :</label>
+              <input type="text" id="matricule" name="matricule" class="form-control" placeholder=""
+                     #matricule="ngModel" [(ngModel)]="agent.matricule" required minlength="5"
+                     [ngClass]="{'is-invalid': matricule.errors && matricule.touched}">
+              <small class="text-muted" *ngIf="matricule.errors?.required" class="invalid-feedback">
+                Le matricule est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="matricule.errors?.minlength" class="invalid-feedback">
+                Le matricule doit être supérieur à 5 caractères.
+              </small>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="service">Service :</label>
+              <select
+                name="service"
+                id="service"
+                class="form-control"
+                [(ngModel)]="agent.service">
+                <option *ngFor="let s of services" [value]="s.id" [selected]="agent.service==s.id" required>{{ s.nom_service }}</option>
+              </select>
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="specialite">Spécialité :</label>
+              <input type="text" id="specialite" name="specialite" class="form-control" placeholder=""
+                     #specialite="ngModel" [(ngModel)]="agent.specialite" required
+                     [ngClass]="{'is-invalid': specialite.errors && specialite.touched}">
+              <small class="text-muted" *ngIf="specialite.errors?.required" class="invalid-feedback">
+                Le spécialité est nécessaire.
+              </small>
+            </div>
+
+            <div class="col-md-12">
+              <hr data-content="Informations du compte" class="hr-text">
+            </div>
+
+            <div class="col-md-12 form-group" *ngIf="agent.last_name && agent.first_name">
+              <label for="username">Identifiant :</label>
+              <input type="text" id="username" class="form-control" placeholder=""
+                     [value]="agent.last_name+'.'+agent.first_name" disabled>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="Role">Role</label>
+              <select
+                name="Role"
+                id="Role"
+                class="form-control"
+                [(ngModel)]="agent.role">
+                <option *ngFor="let r of roles" [value]="roles.indexOf(r)" [selected]="agent.role==roles.indexOf(r)">{{ r }}</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-group" *ngIf="agent.role==0">
+              <label for="password">Mot de passe :</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder=""
+                     #password="ngModel" [(ngModel)]="agent.password" required
+                     [ngClass]="{'is-invalid': password.errors && password.touched}">
+              <small class="text-muted" *ngIf="password.errors?.required" class="invalid-feedback">
+                Le mot de passe est nécessaire.
+              </small>
+            </div>
+
+          </div>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

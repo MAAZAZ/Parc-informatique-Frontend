@@ -1,0 +1,93 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Réparations</button></h4>
+        <br>
+        <div class="col-md-8 float-right">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Tapez la désignation ou le modèle de produit">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="reparations" class="table table-striped">
+            <thead class=" text-primary">
+            <tr>
+              <th class="text-center">
+                Produit réparé
+              </th>
+              <th class="text-center">
+                Debut
+              </th>
+              <th class="text-center">
+                Fin
+              </th>
+              <th class="text-center">
+                Rapport (motif)
+              </th>
+              <th class="text-center">
+                Prix total
+              </th>
+              <th class="text-center">
+                Actions
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of reparations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter :searchText">
+              <td class="text-center">
+                  {{p.panne_concerne}}
+              </td>
+              <td class="text-center">
+                {{p.date_debut |  date:'dd/MM/yyyy' }}
+              </td>
+              <td class="text-center">
+                {{p.date_fin |  date:'dd/MM/yyyy'}}
+              </td>
+              <td class="text-center">
+                <button class="btn" (click)="DetailReperation(p.id)">
+                  <i class="nc-icon nc-paper"></i>
+                </button>
+              </td>
+              <td class="text-center">
+                {{p.prix_total}} DH
+              </td>
+              <td class="text-center">
+                <div>
+                  <a class="btn btn-primary" routerLink="/reparations/modifier/{{p.id}}">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                </div> &nbsp;
+                <div>
+                  <a class="btn btn-danger" (click)="deleteReparation(p.id)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="length_data"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="row m-4">
+  <div class="col-md-6">
+    <a routerLink="/categories" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des produits
+    </a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group float-right">
+      <a class="btn btn-primary mr-1" routerLink="/categories/materiel/modifier/{{materiel.id}}">
+        <i class="fa fa-pencil"></i> Modifier
+      </a>
+      <a class="btn btn-danger ml-1" (click)="deleteMateriel()">
+        <i class="fa fa-trash"></i> Supprimer
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-center">{{materiel.libelle}}</h4>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-12 text-center">
+        <img class="img-thumbnail" src="{{materiel.image}}" alt="Pas d'image">
+      </div>
+    </div>
+  </div>
+</div>

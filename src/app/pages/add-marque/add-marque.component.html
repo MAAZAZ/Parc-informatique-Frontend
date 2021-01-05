@@ -1,0 +1,45 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <a routerLink="/marques" class="btn btn-info">
+      <i class="fa fa-arrow-circle-left"></i> Retourner à la liste des marques
+    </a>
+  </div>
+</div>
+
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <i class="nc-icon nc-minimal-right"></i> Nouvelle marque
+        </h4>
+        <form #f="ngForm" (ngSubmit)="add()" >
+          <div class="form-group">
+            <label for="designation">Désignation :</label>
+            <input type="text" id="designation" name="designation" class="form-control" placeholder=""
+                   #designation="ngModel" [(ngModel)]="marque.designation" required minlength="2"
+                   [ngClass]="{'is-invalid': designation.errors && designation.touched}">
+              <small class="text-muted" *ngIf="designation.errors?.required" class="invalid-feedback">
+                Désignation est nécessaire.
+              </small>
+              <small class="text-muted" *ngIf="designation.errors?.minlength" class="invalid-feedback">
+                Désignation doit être supérieur à 2 caractères.
+              </small>
+          </div>
+          <br>
+          <label for="logo">Image de la marque :</label>
+          <div class="form-group">
+            <input type="file" class="custom-file-input" id="logo" name="logo" (change)="onFileSelected($event)"
+                   #logo="ngModel" [(ngModel)]="marque.logo">
+            <label class="custom-file-label" for="logo">Clique ici pour l'ajouter</label>
+          </div>
+          <br><br>
+          <div class="text-center">
+            <button [disabled]="!f.valid" class="btn btn-success mr-1" type="submit">Ajouter</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

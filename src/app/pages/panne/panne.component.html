@@ -1,0 +1,91 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">En cours de chargement...</p>
+</ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><button class="btn btn-primary btn-round">Produits défectueux</button></h4>
+        <br>
+        <div class="col-md-8 float-right">
+          <div class="input-group mb-3">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Tapez la désignation ou le modèle de produit">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table *ngIf="pannes" class="table table-striped">
+            <thead class=" text-primary">
+              <th class="text-center">
+                Produit
+              </th>
+              <th class="text-center">
+                Date de répondre
+              </th>
+              <th class="text-center">
+                Quantité
+              </th>
+              <th class="text-center">
+                Reclamation
+              </th>
+              <th class="text-center">
+                Réparation
+              </th>
+              <th class="text-center">
+                Actions
+              </th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of pannes | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter :searchText">
+              <td class="text-center">
+                {{p.produit}}
+              </td>
+              <td class="text-center">
+                {{p.date |  date:'dd/MM/yyyy - HH:mm'}}
+              </td>
+              <td class="text-center">
+                {{p.quantite}}
+              </td>
+              <td class="text-center">
+                {{p.reclamation}}
+              </td>
+              <td class="text-center">
+                <button class="btn btn-default" [routerLink]="['/reparations/nouvelle']" [queryParams]="{ panne: p.id }">
+                  <i class="nc-icon nc-share-66"></i>
+                </button>
+              </td>
+              <td class="text-center">
+                <div>
+                  <a class="btn btn-primary" routerLink="/pannes/modifier/{{p.id}}">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                </div> &nbsp;
+                <div>
+                  <a class="btn btn-danger" (click)="deletePanne(p.id)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="length_data"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
